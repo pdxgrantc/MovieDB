@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import {useSearchForMovies} from "./utils/fetchMovies.js";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [movieSearch, setMovieSearch] = useState();
+  const {data} = useSearchForMovies(movieSearch);
+
+    useEffect(() => {
+        console.log(movieSearch, data);
+    }, [data, movieSearch]);
 
   return (
     <>
@@ -28,6 +35,12 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+        <input id={"movie_search"}/>
+        <button onClick={() => {
+            if (document.getElementById("movie_search").value) {
+                setMovieSearch(document.getElementById("movie_search").value);
+            }
+        }}>Search</button>
     </>
   )
 }
