@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -8,18 +7,8 @@ import {
 } from "react-router-dom";
 import PropTypes from "prop-types";
 
-// styles
-import "./App.css";
-
-// data
-import { useSearchForMovies } from "./utils/fetchMovies.js";
-
 // pages
-// import Home from "./pages/Home";
-import Movie from "./pages/Movie";
-import Actor from "./pages/Actor";
-import Staff from "./pages/Staff";
-import Studio from "./pages/Studio";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -65,19 +54,29 @@ function Root(props) {
         </header>
         <ul className="flex gap-5">
           <li>
-            <NavLink className="navLinkStyle" to="/">Home</NavLink>
+            <NavLink className="navLinkStyle" to="/">
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink className="navLinkStyle" to="/movie">Movie</NavLink>
+            <NavLink className="navLinkStyle" to="/movie">
+              Movie
+            </NavLink>
           </li>
           <li>
-            <NavLink className="navLinkStyle" to="/actor">Actor</NavLink>
+            <NavLink className="navLinkStyle" to="/actor">
+              Actor
+            </NavLink>
           </li>
           <li>
-            <NavLink className="navLinkStyle" to="/staff">Staff</NavLink>
+            <NavLink className="navLinkStyle" to="/staff">
+              Staff
+            </NavLink>
           </li>
           <li>
-            <NavLink className="navLinkStyle" to="/studio">Studio</NavLink>
+            <NavLink className="navLinkStyle" to="/studio">
+              Studio
+            </NavLink>
           </li>
         </ul>
       </nav>
@@ -102,37 +101,5 @@ function Root(props) {
 Root.propTypes = {
   children: PropTypes.node,
 };
-
-function Home() {
-  return (
-    <>
-      <Search />
-    </>
-  );
-}
-
-function Search() {
-  const [movieSearch, setMovieSearch] = useState();
-  const { data } = useSearchForMovies(movieSearch);
-
-  useEffect(() => {
-    console.log(movieSearch, data);
-  }, [data, movieSearch]);
-
-  return (
-    <>
-      <input id={"movie_search"} />
-      <button
-        onClick={() => {
-          if (document.getElementById("movie_search").value) {
-            setMovieSearch(document.getElementById("movie_search").value);
-          }
-        }}
-      >
-        Search
-      </button>
-    </>
-  );
-}
 
 export default App;
