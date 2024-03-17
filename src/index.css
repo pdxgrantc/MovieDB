@@ -2,11 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
-.navLinkStyle {
-    
-}
-
 .active {
     color: white;
 }

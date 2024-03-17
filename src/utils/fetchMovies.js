@@ -21,6 +21,22 @@ const useSearchForMovies = (query) => {
     });
 }
 
+const searchForMovies = async (query) => {
+    if (query) {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/search/movie?query=${query}`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${import.meta.env.VITE_KEY}`
+                }
+            }
+        );
+        return response.json();
+    } else {
+        return null;
+    }
+}
+
 const useGetMovie = (movieID) => {
     return useQuery({
         queryKey: ["movie", movieID],
@@ -63,4 +79,4 @@ const useGetPerson = (personID) => {
     });
 }
 
-export {useSearchForMovies, useGetPerson, useGetMovie}
+export {useSearchForMovies, searchForMovies, useGetPerson, useGetMovie}

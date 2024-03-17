@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
   Outlet,
-  NavLink,
+  Link,
 } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -49,36 +49,11 @@ function Root(props) {
     <div className="text bg-black min-h-screen w-full">
       {/* Header */}
       <nav className="h-[5rem] bg-black flex justify-between mx-[5rem]">
-        <header className="text-lheader font-bold">
-          <h1>Movie Search</h1>
-        </header>
-        <ul className="flex gap-5">
-          <li>
-            <NavLink className="navLinkStyle" to="/">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="navLinkStyle" to="/movie">
-              Movie
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="navLinkStyle" to="/actor">
-              Actor
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="navLinkStyle" to="/staff">
-              Staff
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="navLinkStyle" to="/studio">
-              Studio
-            </NavLink>
-          </li>
-        </ul>
+        <Link to="/">
+          <header className="text-lheader font-bold">
+            <h1>Movie Search</h1>
+          </header>
+        </Link>
       </nav>
 
       {/* Main content */}
