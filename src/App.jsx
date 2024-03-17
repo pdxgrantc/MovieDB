@@ -83,16 +83,17 @@ function Root(props) {
 
       {/* Main content */}
       <div
-        className="bg h-full flex-grow on_desktop:px-20 on_mobile:px-[3vw] pb-10"
+        className="bg h-full flex-grow py-10 px-20 pb-10"
         style={{ minHeight: "calc(100vh - 15rem)" }}
       >
         <main>{children || <Outlet />}</main>
       </div>
 
-      {/* Footer */}
-      <footer className="h-[10rem]">
-        <p>Movie Search</p>
-        <p>Grant Conklin | Rylan Harwood | Tyler Greenwood</p>
+      <footer className="h-[10rem] flex flex-col gap-2 justify-center items-center text-center">
+        <h2 className="text-xxl">Movie Search</h2>
+        <h3 className="text-xl">
+          Grant Conklin | Rylan Harwood | Tyler Greenwood
+        </h3>
       </footer>
     </div>
   );

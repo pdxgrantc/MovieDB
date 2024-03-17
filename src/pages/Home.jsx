@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <>
       <Search />
+      <MovieSearchResults />
     </>
   );
 }
@@ -20,17 +21,29 @@ function Search() {
   }, [data, movieSearch]);
 
   return (
-    <>
-      <input id={"movie_search"} />
-      <button
-        onClick={() => {
-          if (document.getElementById("movie_search").value) {
-            setMovieSearch(document.getElementById("movie_search").value);
-          }
-        }}
-      >
-        Search
-      </button>
-    </>
+    <div className="flex flex-col gap-2">
+      <h1 className="text-subheader font-semibold">Search for a movie</h1>
+      <form className="flex gap-5">
+        <input className="rounded border-none text-black" id={"movie_search"} />
+        <button
+          className="custom-button border-b-2"
+          onClick={() => {
+            if (document.getElementById("movie_search").value) {
+              setMovieSearch(document.getElementById("movie_search").value);
+            }
+          }}
+        >
+          Search
+        </button>
+      </form>
+    </div>
+  );
+}
+
+function MovieSearchResults() {
+  return (
+    <div>
+      <h2>Movie Search Results</h2>
+    </div>
   );
 }
