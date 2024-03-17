@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
-import { searchForMovies, searchForMovieImages } from "../utils/fetchMovies";
+import { searchForMovies } from "../utils/fetchMovies";
 
 export default function Home() {
   const [data, setData] = useState(null);
