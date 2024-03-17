@@ -13,6 +13,7 @@ export default {
       backgroundColor: {
         DEFAULT: '#1a1a1a',
         menuBG: '#404040',
+        cardBG: '#2a2a2a',
       },
       colors: {
         transparent: 'transparent',
@@ -40,6 +41,7 @@ export default {
       borderRadius: {
         DEFAULT: '0.5rem',
         menu: '1rem',
+        card: '1rem',
       },
     },
   },
