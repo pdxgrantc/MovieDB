@@ -30,7 +30,7 @@ function Root(props) {
   const { children } = props;
 
   return (
-    <div>
+    <div className="text">
       <nav>
         <header>
           <h1>Movie Search</h1>
@@ -43,6 +43,11 @@ function Root(props) {
       </nav>
 
       <main>{children || <Outlet />}</main>
+
+      <footer>
+        <p>Movie Search</p>
+        <p>Grant Conklin | Rylan Harwood | Tyler Greenwood</p>
+      </footer>
     </div>
   );
 }
