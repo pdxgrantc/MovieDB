@@ -21,13 +21,46 @@ const useSearchForMovies = (query) => {
     });
 }
 
+const searchForMovies = async (query) => {
+    if (query) {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/search/movie?query=${query}`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${import.meta.env.VITE_KEY}`
+                }
+            }
+        );
+        return response.json();
+    } else {
+        return null;
+    }
+}
+
+const searchForMovieImages = async (movieId) => {
+    if (movieId) {
+        const response = await fetch(
+            `https://api.themoviedb.org/3/movie/${movieId}/images`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${import.meta.env.VITE_KEY}`,
+                    "Accept": "application/json"
+                }
+            }
+        );
+        return response.json();
+    } else {
+        return null;
+    }
+}
+
 const useGetMovie = (movieID) => {
     return useQuery({
         queryKey: ["movie", movieID],
         queryFn: async () => {
             if (movieID) {
                 const response = await fetch(
-                    `https://api.themoviedb.org/3/movie/${movieID}`,
+                    `https://api.themoviedb.org/3/movie/${movieID}/images?include_image_language=en,null`,
                     {
                         headers: {
                             "Authorization": `Bearer ${import.meta.env.VITE_KEY}`
@@ -63,4 +96,4 @@ const useGetPerson = (personID) => {
     });
 }
 
-export {useSearchForMovies, useGetPerson, useGetMovie}
+export {useSearchForMovies, searchForMovies, searchForMovieImages, useGetPerson, useGetMovie}
