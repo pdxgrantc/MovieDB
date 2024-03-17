@@ -1,48 +1,86 @@
-import {useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {useSearchForMovies} from "./utils/fetchMovies.js";
+import { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  NavLink,
+} from "react-router-dom";
+import PropTypes from "prop-types";
+
+// styles
+import "./App.css";
+
+// data
+import { useSearchForMovies } from "./utils/fetchMovies.js";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [movieSearch, setMovieSearch] = useState();
-  const {data} = useSearchForMovies(movieSearch);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Root />} caseSensitive={true}>
+          <Route path="/" element={<Home />} caseSensitive={true} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
-    useEffect(() => {
-        console.log(movieSearch, data);
-    }, [data, movieSearch]);
+function Root(props) {
+  const { children } = props;
+
+  return (
+    <div>
+      <nav>
+        <header>
+          <h1>Movie Search</h1>
+        </header>
+        <ul>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+        </ul>
+      </nav>
+
+      <main>{children || <Outlet />}</main>
+    </div>
+  );
+}
+
+Root.propTypes = {
+  children: PropTypes.node,
+};
+
+function Home() {
+  return (
+    <>
+      <Search />
+    </>
+  );
+}
+
+function Search() {
+  const [movieSearch, setMovieSearch] = useState();
+  const { data } = useSearchForMovies(movieSearch);
+
+  useEffect(() => {
+    console.log(movieSearch, data);
+  }, [data, movieSearch]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-        <input id={"movie_search"}/>
-        <button onClick={() => {
-            if (document.getElementById("movie_search").value) {
-                setMovieSearch(document.getElementById("movie_search").value);
-            }
-        }}>Search</button>
+      <input id={"movie_search"} />
+      <button
+        onClick={() => {
+          if (document.getElementById("movie_search").value) {
+            setMovieSearch(document.getElementById("movie_search").value);
+          }
+        }}
+      >
+        Search
+      </button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
