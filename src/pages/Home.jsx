@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
 import { searchForMovies, searchForMovieImages } from "../utils/fetchMovies";
-
-// icons
-import { IoMdInformationCircleOutline as MoreInfoIcon } from "react-icons/io";
-import { Link } from "react-router-dom";
 
 export default function Home() {
   const [data, setData] = useState(null);
