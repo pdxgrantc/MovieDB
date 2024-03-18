@@ -79,4 +79,4 @@ const useGetPerson = (personID) => {
     });
 }
 
-export {useSearchForMovies, searchForMovies, searchForMovieImages, useGetPerson, useGetMovie}
+export {useSearchForMovies, searchForMovies, useGetPerson, useGetMovie}
