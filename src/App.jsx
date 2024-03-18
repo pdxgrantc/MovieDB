@@ -1,41 +1,49 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Outlet,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // pages
 import Home from "./pages/Home";
+import Movie from "./pages/Movie";
+import Actor from "./pages/Actor";
+import Staff from "./pages/Staff";
+import Studio from "./pages/Studio";
+import Error from "./pages/Error";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Root />} caseSensitive={true}>
+        <Route
+          path="/"
+          element={<Root />}
+          errorElement={
+            <Root>
+              <Error />
+            </Root>
+          }
+        >
           <Route path="/" element={<Home />} caseSensitive={true} />
           <Route
-            path="/movie/:movie-name"
-            element={<Home />}
+            path="/movie/:movieID"
+            element={<Movie />}
             caseSensitive={true}
           />
           <Route
             path="/actor/:actor-name"
-            element={<Home />}
+            element={<Actor />}
             caseSensitive={true}
           />
           <Route
             path="/staff/:staff-name"
-            element={<Home />}
+            element={<Staff />}
             caseSensitive={true}
           />
           <Route
             path="/studio/:studio-name"
-            element={<Home />}
+            element={<Studio />}
             caseSensitive={true}
           />
+          <Route path="*" element={<Error />} />
         </Route>
       </Routes>
     </BrowserRouter>
