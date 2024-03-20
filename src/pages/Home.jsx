@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
-import { searchForMovies } from "../utils/fetchMovies";
+import { searchForMovies } from "../utils/MovieApiInterface";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -22,7 +22,7 @@ export default function Home() {
         }
       });
     }
-  }, []);
+  }, [location.search]);
 
   const handleMovieSearch = async (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-subheader font-semibold">Search for a movie</h1>
         <form className="flex gap-5" onSubmit={handleMovieSearch}>
@@ -60,7 +60,7 @@ export default function Home() {
       </div>
 
       {data && <MovieSearchResults data={data} />}
-    </>
+    </div>
   );
 }
 
