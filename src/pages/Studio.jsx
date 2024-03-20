@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 
 // data
 import { searchForStudio } from "../utils/StudioApiInterface";
-import { Link } from "react-router-dom";
 
 export default function Studio() {
   // pull the movie id from the url
