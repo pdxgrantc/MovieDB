@@ -26,22 +26,22 @@ function App() {
           <Route
             path="/movie/:movieID"
             element={<Movie />}
-            caseSensitive={true}
+            caseSensitive={false}
           />
           <Route
             path="/actor/:actor-name"
             element={<Actor />}
-            caseSensitive={true}
+            caseSensitive={false}
           />
           <Route
             path="/staff/:staff-name"
             element={<Staff />}
-            caseSensitive={true}
+            caseSensitive={false}
           />
           <Route
             path="/studio/:studio-name"
             element={<Studio />}
-            caseSensitive={true}
+            caseSensitive={false}
           />
           <Route path="*" element={<Error />} />
         </Route>
