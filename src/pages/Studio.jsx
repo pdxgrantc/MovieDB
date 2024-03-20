@@ -14,7 +14,6 @@ export default function Studio() {
     if (studioID) {
       searchForStudio(studioID).then((response) => {
         if (response.total_results !== 0) {
-          console.log(response);
           setStudioDetails(response);
         } else {
           setStudioDetails([]);
@@ -22,8 +21,6 @@ export default function Studio() {
       });
     }
   }, [studioID]);
-
-  console.log(studioDetails);
 
   return (
     <div className="flex gap-10">

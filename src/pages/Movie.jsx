@@ -79,7 +79,7 @@ export default function Movie() {
           "https://image.tmdb.org/t/p/original" +
           image
         }
-        alt="Bull Shit"
+        alt="No Movie Poster Found"
       />
       <MovieCast cast={movieCast} />
       <MovieCrew crew={movieCrew} />
