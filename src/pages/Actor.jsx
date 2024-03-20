@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
@@ -19,7 +20,6 @@ export default function Actor() {
     if (actorID) {
       searchForActor(actorID).then((response) => {
         if (response.total_results !== 0) {
-          console.log(response);
           setActorDetails(response);
         } else {
           setActorDetails([]);
@@ -32,7 +32,6 @@ export default function Actor() {
     if (actorID) {
       searchForActorCredits(actorID).then((response) => {
         if (response.total_results !== 0) {
-          console.log(response);
           setActorCredits(response);
         } else {
           setActorCredits([]);
@@ -40,8 +39,6 @@ export default function Actor() {
       });
     }
   }, [actorID]);
-
-  console.log(actorCredits);
 
   return (
     <>
@@ -106,7 +103,9 @@ function ActorMovieCredits({ credits }) {
           <tbody>
             {credits?.map((movie) => (
               <tr key={movie.id}>
-                <td>{movie.title}</td>
+                <td>
+                  <Link to={`/movie/${movie?.id}`}>{movie.title}</Link>
+                </td>
                 <td>{movie.character}</td>
               </tr>
             ))}
@@ -120,66 +119,3 @@ function ActorMovieCredits({ credits }) {
 ActorMovieCredits.propTypes = {
   credits: PropTypes.array,
 };
-
-/*
-import { useState, useEffect } from "react";
-import { useParams } from "react-router";
-
-// data
-import { searchForStudio } from "../utils/StudioApiInterface";
-
-export default function Studio() {
-  // pull the movie id from the url
-  const { studioID } = useParams();
-  // create state to hold the movie details
-  const [studioDetails, setStudioDetails] = useState(null);
-
-  useEffect(() => {
-    if (studioID) {
-      searchForStudio(studioID).then((response) => {
-        if (response.total_results !== 0) {
-          console.log(response);
-          setStudioDetails(response);
-        } else {
-          setStudioDetails([]);
-        }
-      });
-    }
-  }, [studioID]);
-
-  console.log(studioDetails);
-
-  return (
-    <div className="flex gap-10">
-      <div className="bg-logoBG px-10 py-8 rounded-image">
-        <a href={studioDetails?.homepage} target="_blank" rel="noreferrer">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${studioDetails?.logo_path}`}
-            alt={studioDetails?.name}
-          />
-        </a>
-      </div>
-      <div>
-        <h1>{studioDetails?.name}</h1>
-        <a
-          href={studioDetails?.homepage}
-          className="custom-button border-b-2"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Homepage
-        </a>
-        <h2>{studioDetails?.headquarters}</h2>
-        {studioDetails?.description !== "" && (
-          <h2>{studioDetails?.description}</h2>
-        )}
-        {studioDetails?.parent_company !== "" && (
-          <h2>{studioDetails?.parent_company}</h2>
-        )}
-      </div>
-    </div>
-  );
-}
-
-
-*/
