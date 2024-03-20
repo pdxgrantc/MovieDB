@@ -59,7 +59,7 @@ export default function Movie() {
     }
   }, [movieID]);
 
-  console.log(images)
+  console.log(images);
 
   return (
     <div className="grid grid-cols-2">
@@ -68,7 +68,8 @@ export default function Movie() {
       </div>
       <img
         src={
-          "https://image.tmdb.org/t/p/original" + images?.backdrops[1]?.file_path
+          "https://image.tmdb.org/t/p/original" +
+          images?.backdrops[1]?.file_path
         }
         alt="Bull Shit"
       />
@@ -108,24 +109,30 @@ function MovieCast({ cast }) {
   return (
     <div>
       <h2>Credits</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Actor</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cast?.map((cast_member) => (
-            <tr key={cast_member.id}>
-              <td>
-                <Link to={`/Actor/${cast_member.id}`}>{cast_member.name}</Link>
-              </td>
-              <td>{cast_member.character}</td>
+      {cast?.length === 0 ? (
+        <h3>No Crew Found</h3>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Actor</th>
+              <th>Role</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {cast?.map((cast_member) => (
+              <tr key={cast_member.id}>
+                <td>
+                  <Link to={`/Actor/${cast_member.id}`}>
+                    {cast_member.name}
+                  </Link>
+                </td>
+                <td>{cast_member.character}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
@@ -138,26 +145,32 @@ function MovieCrew({ crew }) {
   return (
     <div>
       <h2>Credits</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Cast Member</th>
-            <th>Department</th>
-            <th>Job</th>
-          </tr>
-        </thead>
-        <tbody>
-          {crew?.map((crew_member, index) => (
-            <tr key={index}>
-              <td>
-                <Link to={`/Staff/${crew_member.id}`}>{crew_member.name}</Link>
-              </td>
-              <td>{crew_member.department}</td>
-              <td>{crew_member.job}</td>
+      {crew?.length === 0 ? (
+        <h3>No Crew Found</h3>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Cast Member</th>
+              <th>Department</th>
+              <th>Job</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {crew?.map((crew_member, index) => (
+              <tr key={index}>
+                <td>
+                  <Link to={`/Staff/${crew_member.id}`}>
+                    {crew_member.name}
+                  </Link>
+                </td>
+                <td>{crew_member.department}</td>
+                <td>{crew_member.job}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
