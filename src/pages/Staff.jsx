@@ -1,44 +1,15 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-// data
-import {
-  searchForActor,
-  searchForActorCredits,
-} from "../utils/ActorApiInterface";
+import {useSearchForPerson, useSearchForPersonCredits} from "../utils/PersonApiInterface.js";
 
-export default function Actor() {
+export default function Staff() {
   // pull the movie id from the url
   const { staffID } = useParams();
-  // create state to hold the movie details
-  const [actorDetails, setActorDetails] = useState(null);
-  const [actorCredits, setActorCredits] = useState(null);
 
-  useEffect(() => {
-    if (staffID) {
-      searchForActor(staffID).then((response) => {
-        if (response.total_results !== 0) {
-          setActorDetails(response);
-        } else {
-          setActorDetails([]);
-        }
-      });
-    }
-  }, [staffID]);
-
-  useEffect(() => {
-    if (staffID) {
-      searchForActorCredits(staffID).then((response) => {
-        if (response.total_results !== 0) {
-          setActorCredits(response);
-        } else {
-          setActorCredits([]);
-        }
-      });
-    }
-  }, [staffID]);
+  const {data: staffDetails} = useSearchForPerson(staffID);
+  const {data: staffCredits} = useSearchForPersonCredits(staffID);
 
   return (
     <>
@@ -47,21 +18,21 @@ export default function Actor() {
           <div className="inline-block h-fit bg-logoBG px-10 py-8 rounded-image">
             <img
               className="h-fit"
-              src={`https://image.tmdb.org/t/p/w500${actorDetails?.profile_path}`}
-              alt={actorDetails?.name}
+              src={`https://image.tmdb.org/t/p/w500${staffDetails?.profile_path}`}
+              alt={staffDetails?.name}
             />
           </div>
           <div>
-            <h1>{actorDetails?.name}</h1>
-            <h2>From: {actorDetails?.known_for_department}</h2>
-            <h2>From: {actorDetails?.place_of_birth}</h2>
-            {actorDetails?.parent_company !== "" && (
-              <h2>{actorDetails?.parent_company}</h2>
+            <h1>{staffDetails?.name}</h1>
+            <h2>From: {staffDetails?.known_for_department}</h2>
+            <h2>From: {staffDetails?.place_of_birth}</h2>
+            {staffDetails?.parent_company !== "" && (
+              <h2>{staffDetails?.parent_company}</h2>
             )}
-            {actorDetails?.also_known_as.length !== 0 && (
+            {staffDetails?.also_known_as.length !== 0 && (
               <table>
                 <tbody>
-                  {actorDetails?.also_known_as.map((name, index) => (
+                  {staffDetails?.also_known_as.map((name, index) => (
                     <tr key={index}>
                       <td className="pr-4">
                         {index === 0 ? "Also Known As:" : ""}
@@ -74,19 +45,19 @@ export default function Actor() {
             )}
             <div>
               <h2>Biography:</h2>
-              {actorDetails?.biography !== "" && (
-                <h3 className="">{actorDetails?.biography}</h3>
+              {staffDetails?.biography !== "" && (
+                <h3 className="">{staffDetails?.biography}</h3>
               )}
             </div>
           </div>
         </div>
-        <ActorMovieCredits credits={actorCredits?.crew} />
+        <StaffMovieCredits credits={staffCredits?.crew} />
       </div>
     </>
   );
 }
 
-function ActorMovieCredits({ credits }) {
+function StaffMovieCredits({ credits }) {
   return (
     <div>
       <h2>Credits</h2>
@@ -105,6 +76,6 @@ function ActorMovieCredits({ credits }) {
   );
 }
 
-ActorMovieCredits.propTypes = {
+StaffMovieCredits.propTypes = {
   credits: PropTypes.array,
 };

@@ -1,44 +1,14 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-
-// data
-import {
-  searchForActor,
-  searchForActorCredits,
-} from "../utils/ActorApiInterface";
+import {useSearchForPerson, useSearchForPersonCredits} from "../utils/PersonApiInterface.js";
 
 export default function Actor() {
   // pull the movie id from the url
   const { actorID } = useParams();
-  // create state to hold the movie details
-  const [actorDetails, setActorDetails] = useState(null);
-  const [actorCredits, setActorCredits] = useState(null);
 
-  useEffect(() => {
-    if (actorID) {
-      searchForActor(actorID).then((response) => {
-        if (response.total_results !== 0) {
-          setActorDetails(response);
-        } else {
-          setActorDetails([]);
-        }
-      });
-    }
-  }, [actorID]);
-
-  useEffect(() => {
-    if (actorID) {
-      searchForActorCredits(actorID).then((response) => {
-        if (response.total_results !== 0) {
-          setActorCredits(response);
-        } else {
-          setActorCredits([]);
-        }
-      });
-    }
-  }, [actorID]);
+  const {data: actorDetails} = useSearchForPerson(actorID);
+  const {data: actorCredits} = useSearchForPersonCredits(actorID);
 
   return (
     <>

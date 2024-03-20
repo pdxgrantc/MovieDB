@@ -1,45 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
-import { searchForMovies } from "../utils/MovieApiInterface";
+import {useSearchForMovies} from "../utils/MovieApiInterface";
 
 export default function Home() {
-  const [data, setData] = useState(null);
   const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const readSearchQuery = queryParams.get("search");
+  const [query, setQuery] = useState(readSearchQuery);
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const searchQuery = queryParams.get("search");
-
-    if (searchQuery) {
-      searchForMovies(searchQuery).then((response) => {
-        if (response.total_results !== 0) {
-          setData(response.results);
-        } else {
-          setData([]);
-        }
-      });
-    }
-  }, [location.search]);
+  const {data} = useSearchForMovies(query);
 
   const handleMovieSearch = async (e) => {
     e.preventDefault();
     // pull the search query from the input tag with the id of "movie_search"
     const searchQuery = document.getElementById("movie_search").value;
-    const response = await searchForMovies(searchQuery);
 
     // add this to the url `?search=${searchQuery}`
     // this will allow the user to share the search results with others
     window.history.pushState({}, "", `?search=${searchQuery}`);
-
-    // ensure no null values are passed to setData
-    if (response.total_results !== 0) {
-      setData(response.results);
-    } else {
-      setData([]);
-    }
+    setQuery(searchQuery);
   };
 
   return (
@@ -59,7 +41,7 @@ export default function Home() {
         </form>
       </div>
 
-      {data && <MovieSearchResults data={data} />}
+      {data && <MovieSearchResults data={data.results} />}
     </div>
   );
 }

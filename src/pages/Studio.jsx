@@ -1,26 +1,11 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-
-// data
-import { searchForStudio } from "../utils/StudioApiInterface";
+import {useSearchForStudio} from "../utils/StudioApiInterface.js";
 
 export default function Studio() {
   // pull the movie id from the url
   const { studioID } = useParams();
-  // create state to hold the movie details
-  const [studioDetails, setStudioDetails] = useState(null);
 
-  useEffect(() => {
-    if (studioID) {
-      searchForStudio(studioID).then((response) => {
-        if (response.total_results !== 0) {
-          setStudioDetails(response);
-        } else {
-          setStudioDetails([]);
-        }
-      });
-    }
-  }, [studioID]);
+  const {data: studioDetails} = useSearchForStudio(studioID);
 
   return (
     <div className="flex gap-10">

@@ -1,74 +1,37 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import {useGetMovie} from "../utils/fetchMovies.js";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
 import {
-  searchForMovie,
-  searchForMovieDetails,
-  searchForMovieStaff,
+    useSearchForMovieDetails, useSearchForMovieImages, useSearchForMovieStaff,
 } from "../utils/MovieApiInterface";
 
 // TODO search details https://developer.themoviedb.org/reference/movie-details
-// TODO sewarch credits https://developer.themoviedb.org/reference/movie-credits
+// TODO search credits https://developer.themoviedb.org/reference/movie-credits
 
 export default function Movie() {
   // pull the movie id from the url
   const { movieID } = useParams();
 
-  // create state to hold the movie details
-  const [movieDetails, setMovieDetails] = useState(null);
-  const [movieCast, setMovieCast] = useState(null);
-  const [movieCrew, setMovieCrew] = useState(null);
   const [image, setImage] = useState(null);
 
-  useEffect(() => {
-    if (movieID) {
-      searchForMovie(movieID).then((response) => {
-        if (response.total_results !== 0) {
-          if (response.posters.length === 0) {
-            if (response.backdrops.length === 0) {
-              setImage([]);
-            } else {
-              setImage(response.backdrops[0].file_path);
-            }
-          } else {
-            setImage(response.posters[0].file_path);
-          }
-        } else {
-          setImage([]);
-        }
-      });
-    }
-  }, [movieID]);
+  const {data: movieImageDetails} = useSearchForMovieImages(movieID);
+  const {data: movieDetails} = useSearchForMovieDetails(movieID);
+  const {data: movieStaff} = useSearchForMovieStaff(movieID);
 
   useEffect(() => {
-    if (movieID) {
-      searchForMovieDetails(movieID).then((response) => {
-        if (response.total_results !== 0) {
-          setMovieDetails(response);
+    if (movieImageDetails) {
+        if (movieImageDetails.posters) {
+            setImage(movieImageDetails.posters[0].file_path);
+        } else if (movieImageDetails.backdrops) {
+            setImage(movieImageDetails.backdrops[0].file_path);
         } else {
-          setMovieDetails([]);
+            setImage([]);
         }
-      });
     }
-  }, [movieID]);
-
-  useEffect(() => {
-    if (movieID) {
-      searchForMovieStaff(movieID).then((response) => {
-        if (response.total_results !== 0) {
-          setMovieCast(response.cast);
-          setMovieCrew(response.crew);
-        } else {
-          setMovieCast([]);
-          setMovieCrew([]);
-        }
-      });
-    }
-  }, [movieID]);
+  }, [movieImageDetails])
 
   return (
     <div className="grid grid-cols-2">
@@ -81,10 +44,10 @@ export default function Movie() {
           "https://image.tmdb.org/t/p/original" +
           image
         }
-        alt="No Movie Poster Found"
+        alt={movieDetails ? movieDetails.title : "No Movie Poster Found"}
       />
-      <MovieCast cast={movieCast} />
-      <MovieCrew crew={movieCrew} />
+      <MovieCast cast={movieStaff ? movieStaff.cast : null} />
+      <MovieCrew crew={movieStaff ? movieStaff.crew : null} />
     </div>
   );
 }
@@ -121,7 +84,7 @@ function MovieCast({ cast }) {
     <div>
       <h2>Credits</h2>
       {cast?.length === 0 ? (
-        <h3>No Crew Found</h3>
+        <h3>No Cast Found</h3>
       ) : (
         <table>
           <thead>
