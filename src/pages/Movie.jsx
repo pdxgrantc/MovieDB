@@ -17,7 +17,7 @@ export default function Movie() {
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieCast, setMovieCast] = useState(null);
   const [movieCrew, setMovieCrew] = useState(null);
-  const [images, setImages] = useState(null);
+  const [image, setImage] = useState(null);
   // pull the movie id from the url
   const { movieID } = useParams();
 
@@ -25,9 +25,17 @@ export default function Movie() {
     if (movieID) {
       searchForMovie(movieID).then((response) => {
         if (response.total_results !== 0) {
-          setImages(response);
+          if (response.posters.length === 0) {
+            if (response.backdrops.length === 0) {
+              setImage([]);
+            } else {
+              setImage(response.backdrops[0].file_path);
+            }
+          } else {
+            setImage(response.posters[0].file_path);
+          }
         } else {
-          setImages([]);
+          setImage([]);
         }
       });
     }
@@ -59,8 +67,6 @@ export default function Movie() {
     }
   }, [movieID]);
 
-  console.log(images);
-
   return (
     <div className="grid grid-cols-2">
       <div>
@@ -69,7 +75,7 @@ export default function Movie() {
       <img
         src={
           "https://image.tmdb.org/t/p/original" +
-          images?.backdrops[1]?.file_path
+          image
         }
         alt="Bull Shit"
       />
@@ -84,7 +90,8 @@ function MovieDetails({ data }) {
     <div>
       <h1>{data?.title}</h1>
       <h2>{data?.overview}</h2>
-      <h2>Budget: ${data?.budget}</h2>
+      <h2>Original Language: {data?.original_language}</h2>
+      <h2>Budget: ${data?.budget?.toLocaleString()}</h2>
       <div>
         <h2>Production Companies</h2>
         <ul>
