@@ -90,21 +90,24 @@ MovieSearchResults.propTypes = {
 function MovieCard({ movie }) {
   // on load, search for the movie's images
 
+  const languageNames = new Intl.DisplayNames(['en'], {
+    type: 'language'
+  });
+
   return (
-    <div className="flex gap-5 h-fit">
-      <Link to={`/movie/${movie.id}`}>
+    <div>
+      <Link to={`/movie/${movie.id}`} className={"flex gap-5 h-fit"}>
         <img
-          to={`/movie/${movie.id}`}
           className="h-[7.5rem] rounded"
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
         />
+        <div>
+          <h3 className="text-xl font-semibold">{movie.title}</h3>
+          <h4>Release date: {(new Date(movie.release_date)).toLocaleDateString('en-us', {year: "numeric", month: "long", day: "numeric"})}</h4>
+          <h4>Language: {languageNames.of(movie.original_language)}</h4>
+        </div>
       </Link>
-      <div>
-        <h3 className="text-xl font-semibold">{movie.title}</h3>
-        <h4>Release date: {movie.release_date}</h4>
-        <h4>Language: {movie.original_language}</h4>
-      </div>
     </div>
   );
 }
