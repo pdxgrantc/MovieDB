@@ -73,6 +73,7 @@ export default function Movie() {
         <MovieDetails data={movieDetails} />
       </div>
       <img
+       className="rounded-image"
         src={
           "https://image.tmdb.org/t/p/original" +
           image

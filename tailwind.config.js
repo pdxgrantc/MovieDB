@@ -42,6 +42,7 @@ export default {
         DEFAULT: '0.5rem',
         menu: '1rem',
         card: '1rem',
+        image: '1rem',
       },
     },
   },
