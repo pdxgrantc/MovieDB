@@ -1,5 +1,28 @@
 import {useQuery} from "@tanstack/react-query";
 
+const useSearchForPeople = (query) => {
+    return useQuery({
+        queryKey: ["People", query],
+        queryFn: async () => {
+            if (query) {
+                const response = await fetch(
+                    `https://api.themoviedb.org/3/search/person?query=${query}`,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${import.meta.env.VITE_KEY}`
+                        }
+                    }
+                );
+                return response.json();
+            } else {
+                return null;
+            }
+        },
+        staleTime: 60 * 1000,
+        refetchOnMount: true
+    });
+}
+
 const useSearchForPerson = (personID) => {
     return useQuery({
         queryKey: ["Person", personID],
@@ -46,4 +69,4 @@ const useSearchForPersonCredits = (personID) => {
     });
 }
 
-export {useSearchForPerson, useSearchForPersonCredits};
+export {useSearchForPeople, useSearchForPerson, useSearchForPersonCredits};

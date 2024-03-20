@@ -53,11 +53,15 @@ export default function Movie() {
 }
 
 function MovieDetails({ data }) {
+    const languageNames = new Intl.DisplayNames(['en'], {
+        type: 'language'
+    });
+
   return (
     <div>
       <h1>{data?.title}</h1>
       <h2>{data?.overview}</h2>
-      <h2>Original Language: {data?.original_language}</h2>
+      <h2>Original Language: {data?.original_language ? languageNames.of(data?.original_language) : ""}</h2>
       <h2>Budget: ${data?.budget?.toLocaleString()}</h2>
       <div>
         <h2>Production Companies</h2>

@@ -23,11 +23,11 @@ export default function Staff() {
             />
           </div>
           <div>
-            <h1>{staffDetails?.name}</h1>
-            <h2>From: {staffDetails?.known_for_department}</h2>
-            <h2>From: {staffDetails?.place_of_birth}</h2>
+            <h2>{staffDetails?.name}</h2>
+            <h3>Does: {staffDetails?.known_for_department}</h3>
+            {staffDetails?.place_of_birth && <h3>From: {staffDetails?.place_of_birth}</h3>}
             {staffDetails?.parent_company !== "" && (
-              <h2>{staffDetails?.parent_company}</h2>
+              <h3>{staffDetails?.parent_company}</h3>
             )}
             {staffDetails?.also_known_as.length !== 0 && (
               <table>
@@ -43,12 +43,10 @@ export default function Staff() {
                 </tbody>
               </table>
             )}
-            <div>
-              <h2>Biography:</h2>
-              {staffDetails?.biography !== "" && (
-                <h3 className="">{staffDetails?.biography}</h3>
-              )}
-            </div>
+            {staffDetails?.biorgraphy && <div>
+              <h3>Biography:</h3>
+              <h3>{staffDetails?.biography}</h3>
+            </div>}
           </div>
         </div>
         <StaffMovieCredits credits={staffCredits?.crew} />

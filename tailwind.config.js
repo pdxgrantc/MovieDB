@@ -15,14 +15,30 @@ export default {
         menuBG: '#404040',
         cardBG: '#2a2a2a',
         logoBG: '#d1d1d1',
+        ashGray: '#ACBEA3',
+        paleDogwood: '#FFD4CA',
+        redwood: '#AD5D4E',
+        chineseViolet: '#996888',
+        eerieBlack: '#1A1A1A'
       },
       colors: {
         transparent: 'transparent',
+        ashGray: '#ACBEA3',
+        paleDogwood: '#FFD4CA',
+        redwood: '#AD5D4E',
+        chineseViolet: '#996888',
+        eerieBlack: '#1A1A1A'
       },
       textColor: {
         DEFAULT: '#c6c6c6',
+        silver: '#c6c6c6',
         spending: '#ed0000',
         income: '#00dc00',
+        ashGray: '#ACBEA3',
+        paleDogwood: '#FFD4CA',
+        redwood: '#AD5D4E',
+        chineseViolet: '#996888',
+        eerieBlack: '#1A1A1A'
       },
       fontSize: {
         DEFAULT: '1.5rem',

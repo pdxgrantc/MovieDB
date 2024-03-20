@@ -8,6 +8,9 @@ import Actor from "./pages/Actor";
 import Staff from "./pages/Staff";
 import Studio from "./pages/Studio";
 import Error from "./pages/Error";
+import MovieSearch from "./pages/MovieSearch.jsx";
+import PeopleSearch from "./pages/PeopleSearch.jsx";
+import StudioSearch from "./pages/StudioSearch.jsx";
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
           }
         >
           <Route path="/" element={<Home />} caseSensitive={true} />
+          <Route path="/movies" element={<MovieSearch />} caseSensitive={false} />
+            <Route path="/people" element={<PeopleSearch />} caseSensitive={false} />
+            <Route path="/studios" element={<StudioSearch />} caseSensitive={false} />
           <Route
             path="/movie/:movieID"
             element={<Movie />}

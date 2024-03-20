@@ -22,11 +22,10 @@ export default function Actor() {
             />
           </div>
           <div>
-            <h1>{actorDetails?.name}</h1>
-            <h2>From: {actorDetails?.known_for_department}</h2>
-            <h2>From: {actorDetails?.place_of_birth}</h2>
+            <h2>{actorDetails?.name}</h2>
+            {actorDetails?.place_of_birth && <h3>From: {actorDetails?.place_of_birth}</h3>}
             {actorDetails?.parent_company !== "" && (
-              <h2>{actorDetails?.parent_company}</h2>
+              <h3>{actorDetails?.parent_company}</h3>
             )}
             {actorDetails?.also_known_as.length !== 0 && (
               <table>
@@ -42,12 +41,10 @@ export default function Actor() {
                 </tbody>
               </table>
             )}
-            <div>
+            {actorDetails?.biography && <div>
               <h2>Biography:</h2>
-              {actorDetails?.biography !== "" && (
-                <h3 className="">{actorDetails?.biography}</h3>
-              )}
-            </div>
+              <h3>{actorDetails?.biography}</h3>
+            </div>}
           </div>
         </div>
         <ActorMovieCredits credits={actorCredits?.cast} />
