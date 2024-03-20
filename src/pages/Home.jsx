@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
-import { searchForMovies } from "../utils/fetchMovies";
+import { searchForMovies } from "../utils/apiInterface";
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -22,7 +22,7 @@ export default function Home() {
         }
       });
     }
-  }, []);
+  }, [location.search]);
 
   const handleMovieSearch = async (e) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 
-const useSearchForMovies = (query) => {
+const useSearchForMovies = async (query) => {
     return useQuery({
         queryKey: ["movies", query],
         queryFn: async () => {
@@ -21,21 +21,7 @@ const useSearchForMovies = (query) => {
     });
 }
 
-const searchForMovies = async (query) => {
-    if (query) {
-        const response = await fetch(
-            `https://api.themoviedb.org/3/search/movie?query=${query}`,
-            {
-                headers: {
-                    "Authorization": `Bearer ${import.meta.env.VITE_KEY}`
-                }
-            }
-        );
-        return response.json();
-    } else {
-        return null;
-    }
-}
+
 
 const useGetMovie = (movieID) => {
     return useQuery({
@@ -58,6 +44,8 @@ const useGetMovie = (movieID) => {
     });
 }
 
+
+
 const useGetPerson = (personID) => {
     return useQuery({
         queryKey: ["person", personID],
@@ -79,4 +67,4 @@ const useGetPerson = (personID) => {
     });
 }
 
-export {useSearchForMovies, searchForMovies, useGetPerson, useGetMovie}
+export {useSearchForMovies, useGetPerson, useGetMovie}
