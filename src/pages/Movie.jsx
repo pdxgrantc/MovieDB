@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
@@ -7,19 +8,19 @@ import {
   searchForMovie,
   searchForMovieDetails,
   searchForMovieStaff,
-} from "../utils/apiInterface";
-import { Link } from "react-router-dom";
+} from "../utils/MovieApiInterface";
 
 // TODO search details https://developer.themoviedb.org/reference/movie-details
 // TODO sewarch credits https://developer.themoviedb.org/reference/movie-credits
 
 export default function Movie() {
+  // pull the movie id from the url
+  const { movieID } = useParams();
+  // create state to hold the movie details
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieCast, setMovieCast] = useState(null);
   const [movieCrew, setMovieCrew] = useState(null);
   const [image, setImage] = useState(null);
-  // pull the movie id from the url
-  const { movieID } = useParams();
 
   useEffect(() => {
     if (movieID) {

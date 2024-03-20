@@ -14,6 +14,7 @@ export default {
         DEFAULT: '#1a1a1a',
         menuBG: '#404040',
         cardBG: '#2a2a2a',
+        logoBG: '#d1d1d1',
       },
       colors: {
         transparent: 'transparent',

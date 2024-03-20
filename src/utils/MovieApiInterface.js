@@ -35,7 +35,7 @@ const searchForMovieDetails = async (movieID) => {
         const response = await fetch(
             `https://api.themoviedb.org/3/movie/${movieID}?language=en-US`,
             {
-                headers: {  
+                headers: {
                     "Authorization": `Bearer ${import.meta.env.VITE_KEY}`
                 }
             }
@@ -62,4 +62,12 @@ const searchForMovieStaff = async (movieID) => {
     }
 }
 
-export { searchForMovies, searchForMovie, searchForMovieDetails, searchForMovieStaff };
+
+
+// Movie API Interface Functions
+export {
+    searchForMovies,
+    searchForMovie,
+    searchForMovieDetails,
+    searchForMovieStaff
+};

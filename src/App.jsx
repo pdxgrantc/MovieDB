@@ -29,17 +29,17 @@ function App() {
             caseSensitive={false}
           />
           <Route
-            path="/actor/:actor-name"
+            path="/actor/:actorID"
             element={<Actor />}
             caseSensitive={false}
           />
           <Route
-            path="/staff/:staff-name"
+            path="/staff/:staffID"
             element={<Staff />}
             caseSensitive={false}
           />
           <Route
-            path="/studio/:studio-name"
+            path="/studio/:studioID"
             element={<Studio />}
             caseSensitive={false}
           />

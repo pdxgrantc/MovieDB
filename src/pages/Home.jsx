@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
-import { searchForMovies } from "../utils/apiInterface";
+import { searchForMovies } from "../utils/MovieApiInterface";
 
 export default function Home() {
   const [data, setData] = useState(null);
