@@ -17,7 +17,7 @@ export default function Home() {
             Search for Studios
         </Link>
       </div>
-        <h2>Discover New Movies!</h2>
+        <h2 className="text-xl">Discover New Movies!</h2>
         <div>
             <ul className="flex gap-5 flex-col w-fit">
                 {data && data.results.map((movie) => (
