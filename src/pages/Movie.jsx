@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import {Link, Navigate} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
 import {
-    useSearchForMovieDetails, useSearchForMovieImages, useSearchForMovieStaff,
+  useSearchForMovieDetails,
+  useSearchForMovieImages,
+  useSearchForMovieStaff,
 } from "../utils/MovieApiInterface";
 
 // TODO search details https://developer.themoviedb.org/reference/movie-details
@@ -17,33 +19,35 @@ export default function Movie() {
 
   const [image, setImage] = useState(null);
 
-  const {data: movieImageDetails} = useSearchForMovieImages(movieID);
-  const {data: movieDetails} = useSearchForMovieDetails(movieID);
-  const {data: movieStaff} = useSearchForMovieStaff(movieID);
+  const { data: movieImageDetails } = useSearchForMovieImages(movieID);
+  const { data: movieDetails } = useSearchForMovieDetails(movieID);
+  const { data: movieStaff } = useSearchForMovieStaff(movieID);
 
   useEffect(() => {
     if (movieImageDetails) {
-        if (movieImageDetails.posters && movieImageDetails.posters.length > 0) {
-            setImage(movieImageDetails.posters[0].file_path);
-        } else if (movieImageDetails.backdrops && movieImageDetails.backdrops.length > 0) {
-            setImage(movieImageDetails.backdrops[0].file_path);
-        } else {
-            setImage([]);
-        }
+      if (movieImageDetails.posters && movieImageDetails.posters.length > 0) {
+        setImage(movieImageDetails.posters[0].file_path);
+      } else if (
+        movieImageDetails.backdrops &&
+        movieImageDetails.backdrops.length > 0
+      ) {
+        setImage(movieImageDetails.backdrops[0].file_path);
+      } else {
+        setImage([]);
+      }
     }
-  }, [movieImageDetails])
+  }, [movieImageDetails]);
 
-  return movieDetails?.success === false ? <Navigate to={"/404"} /> : (
+  return movieDetails?.success === false ? (
+    <Navigate to={"/404"} />
+  ) : (
     <div className="grid grid-cols-2">
       <div>
         <MovieDetails data={movieDetails} />
       </div>
       <img
-       className="rounded-image"
-        src={
-          "https://image.tmdb.org/t/p/original" +
-          image
-        }
+        className="rounded-image"
+        src={"https://image.tmdb.org/t/p/original" + image}
         alt={movieDetails ? movieDetails.title : "No Movie Poster Found"}
       />
       <MovieCast cast={movieStaff ? movieStaff.cast : null} />
@@ -53,15 +57,20 @@ export default function Movie() {
 }
 
 function MovieDetails({ data }) {
-    const languageNames = new Intl.DisplayNames(['en'], {
-        type: 'language'
-    });
+  const languageNames = new Intl.DisplayNames(["en"], {
+    type: "language",
+  });
 
   return (
     <div>
       <h1>{data?.title}</h1>
       <h2>{data?.overview}</h2>
-      <h2>Original Language: {data?.original_language ? languageNames.of(data?.original_language) : ""}</h2>
+      <h2>
+        Original Language:{" "}
+        {data?.original_language
+          ? languageNames.of(data?.original_language)
+          : ""}
+      </h2>
       <h2>Budget: ${data?.budget?.toLocaleString()}</h2>
       <div>
         <h2>Production Companies</h2>
@@ -86,7 +95,7 @@ MovieDetails.propTypes = {
 function MovieCast({ cast }) {
   return (
     <div>
-      <h2>Credits</h2>
+      <h2 className="text-5xl my-3">Actor Credits</h2>
       {cast?.length === 0 ? (
         <h3>No Cast Found</h3>
       ) : (
@@ -101,7 +110,10 @@ function MovieCast({ cast }) {
             {cast?.map((cast_member) => (
               <tr key={cast_member.id}>
                 <td>
-                  <Link to={`/Actor/${cast_member.id}`}>
+                  <Link
+                    to={`/Actor/${cast_member.id}`}
+                    className="underline underline-offset-2 visited:text-purple-400 hover:text-blue-200"
+                  >
                     {cast_member.name}
                   </Link>
                 </td>
@@ -122,14 +134,15 @@ MovieCast.propTypes = {
 function MovieCrew({ crew }) {
   return (
     <div>
-      <h2>Credits</h2>
+      <h1 className="text-5xl my-5">Crew & Team</h1>
       {crew?.length === 0 ? (
         <h3>No Crew Found</h3>
       ) : (
         <table>
           <thead>
             <tr>
-              <th>Cast Member</th>
+              {/* prettier-ignore */}
+              <th className="whitespace-pre">Cast Member   </th>
               <th>Department</th>
               <th>Job</th>
             </tr>
@@ -138,7 +151,10 @@ function MovieCrew({ crew }) {
             {crew?.map((crew_member, index) => (
               <tr key={index}>
                 <td>
-                  <Link to={`/Staff/${crew_member.id}`}>
+                  <Link
+                    to={`/Staff/${crew_member.id}`}
+                    className="underline underline-offset-2 visited:text-purple-400 hover:text-blue-200"
+                  >
                     {crew_member.name}
                   </Link>
                 </td>
