@@ -52,7 +52,7 @@ export default function Staff() {
             )}
             {staffDetails?.biography && (
               <div>
-                <h3>Biography:</h3>
+                <h3 className="text-3xl py-3">Biography:</h3>
                 <h3>{staffDetails?.biography}</h3>
               </div>
             )}
@@ -66,20 +66,22 @@ export default function Staff() {
 
 function StaffMovieCredits({ credits }) {
   return (
-    <div>
-      <h2>Credits</h2>
-      {credits?.length === 0 ? (
-        <h3>No Credits Found</h3>
-      ) : (
-        <ul>
-          {credits?.map((movie, index) => (
-            <li key={index}>
-              <Link to={`/movie/${movie?.id}`}>{movie.title}</Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <div className="bg-cardBG text-lightGray p-5 rounded-md">
+      <div>
+        <h2 className="text-5xl mb-3">Credits</h2>
+        {credits?.length === 0 ? (
+          <h3>No Credits Found</h3>
+        ) : (
+          <ul>
+            {credits?.map((movie, index) => (
+              <li key={index}>
+                <Link to={`/movie/${movie?.id}`} className="underline underline-offset-2 visited:text-purple-400 hover:text-blue-200">{movie.title}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      </div>
   );
 }
 

@@ -21,7 +21,7 @@ export default function Home() {
         <div>
             <ul className="flex gap-5 flex-col w-fit">
                 {data && data.results.map((movie) => (
-                    <li key={movie.id} className="bg-cardBG rounded-card px-8 py-3">
+                    <li key={movie.id} className="bg-cardBG rounded-card px-8 py-3 hover:scale-125 hover:m-10 ease-in-out duration-300">
                         <MovieCard movie={movie}/>
                     </li>
                 ))}

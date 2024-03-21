@@ -54,7 +54,7 @@ function StudioSearchResults({ data }) {
         <div>
             <ul className="flex gap-5 flex-col w-fit">
                 {data.map((studio) => (
-                    <li key={studio.id} className="bg-cardBG rounded-card px-8 py-3">
+                    <li key={studio.id} className="bg-cardBG rounded-card px-8 py-3 hover:scale-125 hover:m-10 ease-in-out duration-300">
                         <StudioCard studio={studio} />
                     </li>
                 ))}
