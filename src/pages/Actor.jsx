@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import PropTypes from "prop-types";
 import {useSearchForPerson, useSearchForPersonCredits} from "../utils/PersonApiInterface.js";
 
@@ -10,7 +10,7 @@ export default function Actor() {
   const {data: actorDetails} = useSearchForPerson(actorID);
   const {data: actorCredits} = useSearchForPersonCredits(actorID);
 
-  return (
+  return actorDetails?.success === false ? <Navigate to={"/404"} /> : (
     <>
       <div className="grid grid-cols-2 gap-10">
         <div>
@@ -27,7 +27,7 @@ export default function Actor() {
             {actorDetails?.parent_company !== "" && (
               <h3>{actorDetails?.parent_company}</h3>
             )}
-            {actorDetails?.also_known_as.length !== 0 && (
+            {actorDetails && actorDetails?.also_known_as.length !== 0 && (
               <table>
                 <tbody>
                   {actorDetails?.also_known_as.map((name, index) => (

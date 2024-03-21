@@ -1,5 +1,24 @@
 import {useQuery} from "@tanstack/react-query";
 
+const useDiscoverMovies = () => {
+    return useQuery({
+        queryKey: ["Discover"],
+        queryFn: async () => {
+            const response = await fetch(
+                "https://api.themoviedb.org/3/discover/movie",
+                {
+                    headers: {
+                        "Authorization": `Bearer ${import.meta.env.VITE_KEY}`
+                    }
+                }
+            );
+            return response.json();
+        },
+        staleTime: 60 * 1000,
+        refetchOnMount: true
+    });
+}
+
 const useSearchForMovies = (query) => {
     return useQuery({
         queryKey: ["Movies", query],
@@ -96,6 +115,7 @@ const useSearchForMovieStaff = (movieID) => {
 
 // Movie API Interface Functions
 export {
+    useDiscoverMovies,
     useSearchForMovies,
     useSearchForMovieImages,
     useSearchForMovieDetails,

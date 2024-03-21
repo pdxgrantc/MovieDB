@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import {useSearchForStudio} from "../utils/StudioApiInterface.js";
+import {Navigate} from "react-router-dom";
 
 export default function Studio() {
   // pull the movie id from the url
@@ -7,7 +8,7 @@ export default function Studio() {
 
   const {data: studioDetails} = useSearchForStudio(studioID);
 
-  return (
+  return studioDetails?.success === false ? <Navigate to={"/404"} /> : (
     <div className="flex gap-10">
       <div className="bg-logoBG px-10 py-8 rounded-image">
         <a href={studioDetails?.homepage} target="_blank" rel="noreferrer">

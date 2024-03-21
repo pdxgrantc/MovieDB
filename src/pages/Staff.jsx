@@ -1,5 +1,5 @@
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import PropTypes from "prop-types";
 
 import {useSearchForPerson, useSearchForPersonCredits} from "../utils/PersonApiInterface.js";
@@ -11,7 +11,7 @@ export default function Staff() {
   const {data: staffDetails} = useSearchForPerson(staffID);
   const {data: staffCredits} = useSearchForPersonCredits(staffID);
 
-  return (
+  return staffDetails?.success === false ? <Navigate to={"/404"} /> : (
     <>
       <div className="grid grid-cols-2 gap-10">
         <div>
@@ -43,7 +43,7 @@ export default function Staff() {
                 </tbody>
               </table>
             )}
-            {staffDetails?.biorgraphy && <div>
+            {staffDetails?.biography && <div>
               <h3>Biography:</h3>
               <h3>{staffDetails?.biography}</h3>
             </div>}

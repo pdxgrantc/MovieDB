@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import PropTypes from "prop-types";
 
 // data
@@ -23,9 +23,9 @@ export default function Movie() {
 
   useEffect(() => {
     if (movieImageDetails) {
-        if (movieImageDetails.posters) {
+        if (movieImageDetails.posters && movieImageDetails.posters.length > 0) {
             setImage(movieImageDetails.posters[0].file_path);
-        } else if (movieImageDetails.backdrops) {
+        } else if (movieImageDetails.backdrops && movieImageDetails.backdrops.length > 0) {
             setImage(movieImageDetails.backdrops[0].file_path);
         } else {
             setImage([]);
@@ -33,7 +33,7 @@ export default function Movie() {
     }
   }, [movieImageDetails])
 
-  return (
+  return movieDetails?.success === false ? <Navigate to={"/404"} /> : (
     <div className="grid grid-cols-2">
       <div>
         <MovieDetails data={movieDetails} />
