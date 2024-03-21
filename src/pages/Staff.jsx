@@ -1,17 +1,22 @@
 import { useParams } from "react-router";
-import {Link, Navigate} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-import {useSearchForPerson, useSearchForPersonCredits} from "../utils/PersonApiInterface.js";
+import {
+  useSearchForPerson,
+  useSearchForPersonCredits,
+} from "../utils/PersonApiInterface.js";
 
 export default function Staff() {
   // pull the movie id from the url
   const { staffID } = useParams();
 
-  const {data: staffDetails} = useSearchForPerson(staffID);
-  const {data: staffCredits} = useSearchForPersonCredits(staffID);
+  const { data: staffDetails } = useSearchForPerson(staffID);
+  const { data: staffCredits } = useSearchForPersonCredits(staffID);
 
-  return staffDetails?.success === false ? <Navigate to={"/404"} /> : (
+  return staffDetails?.success === false ? (
+    <Navigate to={"/404"} />
+  ) : (
     <>
       <div className="grid grid-cols-2 gap-10">
         <div>
@@ -23,9 +28,11 @@ export default function Staff() {
             />
           </div>
           <div>
-            <h2>{staffDetails?.name}</h2>
+            <h2 className="text-5xl my-5">{staffDetails?.name}</h2>
             <h3>Does: {staffDetails?.known_for_department}</h3>
-            {staffDetails?.place_of_birth && <h3>From: {staffDetails?.place_of_birth}</h3>}
+            {staffDetails?.place_of_birth && (
+              <h3>From: {staffDetails?.place_of_birth}</h3>
+            )}
             {staffDetails?.parent_company !== "" && (
               <h3>{staffDetails?.parent_company}</h3>
             )}
@@ -43,10 +50,12 @@ export default function Staff() {
                 </tbody>
               </table>
             )}
-            {staffDetails?.biography && <div>
-              <h3>Biography:</h3>
-              <h3>{staffDetails?.biography}</h3>
-            </div>}
+            {staffDetails?.biography && (
+              <div>
+                <h3>Biography:</h3>
+                <h3>{staffDetails?.biography}</h3>
+              </div>
+            )}
           </div>
         </div>
         <StaffMovieCredits credits={staffCredits?.crew} />

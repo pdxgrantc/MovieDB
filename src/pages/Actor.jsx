@@ -27,7 +27,7 @@ export default function Actor() {
             />
           </div>
           <div>
-            <h2>{actorDetails?.name}</h2>
+            <h2 className="text-5xl my-5">{actorDetails?.name}</h2>
             {actorDetails?.place_of_birth && (
               <h3>From: {actorDetails?.place_of_birth}</h3>
             )}
@@ -50,7 +50,7 @@ export default function Actor() {
             )}
             {actorDetails?.biography && (
               <div>
-                <h2>Biography:</h2>
+                <h2 className="text-3xl py-3">Biography:</h2>
                 <h3>{actorDetails?.biography}</h3>
               </div>
             )}
@@ -64,7 +64,7 @@ export default function Actor() {
 
 function ActorMovieCredits({ credits }) {
   return (
-    <div className="bg-white text-paleDogwood p-5 rounded-md">
+    <div className="bg-cardBG text-lightGray p-5 rounded-md">
       <h2 className="text-5xl mb-3">Credits</h2>
       {credits?.length === 0 ? (
         <h3>No Credits Found</h3>

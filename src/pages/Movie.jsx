@@ -63,8 +63,8 @@ function MovieDetails({ data }) {
 
   return (
     <div>
-      <h1>{data?.title}</h1>
-      <h2>{data?.overview}</h2>
+      <h1 className="text-5xl mb-5">{data?.title}</h1>
+      <h2 className="mr-4 mb-5 w-9/10">{data?.overview}</h2>
       <h2>
         Original Language:{" "}
         {data?.original_language
@@ -73,12 +73,14 @@ function MovieDetails({ data }) {
       </h2>
       <h2>Budget: ${data?.budget?.toLocaleString()}</h2>
       <div>
-        <h2>Production Companies</h2>
+        <h2>Production Companies: </h2>
         <ul>
           {data?.production_companies?.map((company) => (
             <li key={company.id}>
               <Link to={`/studio/${company.id}`}>
-                <h3>{company.name}</h3>
+                <h3 className="underline underline-offset-2 visited:text-purple-400 hover:text-blue-200">
+                  {company.name}
+                </h3>
               </Link>
             </li>
           ))}
